@@ -220,6 +220,7 @@ Légende : 🟢 MVP · 🟡 V2 · 🟣 V3
 ## 7. Roadmap proposée
 
 **MVP (≈ 6–8 semaines)** — Valider que des candidats payent pour s'entraîner en conditions réelles.
+- **Page d'accueil réelle en premier** : présente les 4 épreuves et l'ensemble des services (packs, examen blanc, examen oral) — c'est la première chose codée, avant même l'auth et les simulateurs, pour valider tôt le rendu et le discours produit
 - Auth + un seul pack payant, sans upgrade
 - CE/CO : séries QCM + correction automatique
 - EE : simulateur chronométré, correction manuelle par email (pas d'IA)
@@ -243,17 +244,19 @@ Légende : 🟢 MVP · 🟡 V2 · 🟣 V3
 
 ## 8. Par où commencer
 
-Dans l'ordre, avant d'écrire du code :
+Dans l'ordre :
 
-1. **Trancher les 7 questions ouvertes de la section 6** — surtout #1 (qui écrit le contenu) et #5 (propriété intellectuelle). Le reste du planning en dépend.
-2. **Choisir un seul pack MVP et un seul mode de paiement** (carte via Stripe). Résister à l'envie de construire Bronze/Silver/Gold et le mobile money dès le jour 1 — ça vient en V2.
-3. **Initialiser le repo** : Next.js + TypeScript + Tailwind + Prisma + Neon (branche `main`), CI minimale (lint + typecheck).
-4. **Modéliser en premier les tables `User`, `Subscription`, `Serie`, `Question`, `Attempt`** (section 3) — tout le reste du MVP en dépend directement.
-5. **Construire un seul parcours de bout en bout avant d'élargir** : inscription → paiement → une série CE avec correction automatique → tableau de score simple. C'est la preuve que le modèle économique fonctionne techniquement, avant d'ajouter EE/EO/CO.
-6. **Brancher le contenu réel du mois 1** avant le lancement public — un CMS vide ne convainc personne.
-7. **Lancer en accès limité** (quelques dizaines d'utilisateurs, idéalement via le canal WhatsApp) avant d'ouvrir le marketing à grande échelle, pour vérifier que la correction et le paiement tiennent en conditions réelles.
+1. ~~Trancher les 7 questions ouvertes de la section 6~~ — **toujours en attente**, surtout #1 (qui écrit le contenu) et #5 (propriété intellectuelle).
+2. ~~Choisir un seul pack MVP et un seul mode de paiement~~ — **toujours en attente**. Résister à l'envie de construire Bronze/Silver/Gold et le mobile money dès le jour 1 — ça vient en V2.
+3. ~~Initialiser le repo~~ — **fait** : Next.js + TypeScript + Tailwind + Prisma + Neon (schéma), dépôt connecté à GitHub (`Ingoupayoumah/Nansah_Simulateur_TCF`), garde-fous de sécurité en place.
+4. **Coder la page d'accueil réelle** (présentant les 4 épreuves et tous nos services) — **prochaine étape à construire**, une fois qu'un « vas-y » explicite est donné.
+5. **Choisir Clerk ou Firebase pour l'authentification** — **en attente**, bloque l'étape suivante.
+6. **Modéliser en premier les tables `User`, `Subscription`, `Serie`, `Question`, `Attempt`** (section 3) — déjà dans `prisma/schema.prisma`, reste à connecter à une vraie base Neon.
+7. **Construire un seul parcours de bout en bout avant d'élargir** : inscription → paiement → une série CE avec correction automatique → tableau de score simple. C'est la preuve que le modèle économique fonctionne techniquement, avant d'ajouter EE/EO/CO.
+8. **Brancher le contenu réel du mois 1** avant le lancement public — un CMS vide ne convainc personne.
+9. **Lancer en accès limité** (quelques dizaines d'utilisateurs, idéalement via le canal WhatsApp) avant d'ouvrir le marketing à grande échelle.
 
-Concrètement : le prochain jalon concret est l'étape 3 (initialisation du repo) une fois les étapes 1 et 2 tranchées avec toi.
+Concrètement : la prochaine chose à *construire* est la page d'accueil (étape 4) — mais seulement sur confirmation explicite, pas automatiquement dès qu'elle est mentionnée dans le plan.
 
 ---
 
