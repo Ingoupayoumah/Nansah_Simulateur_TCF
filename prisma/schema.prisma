@@ -1,0 +1,309 @@
+// Schéma de données — voir README.md section 3 pour le contexte produit.
+// MVP : User, Subscription, Serie, Question, Attempt.
+// Le reste (WrittenSubmission → Coupon) est modélisé dès maintenant pour éviter
+// des migrations lourdes plus tard, mais ne sera implémenté en code qu'à partir de V2/V3.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Identité & abonnement ----------
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  phone           String?
+  country         String?
+  locale          String   @default("fr")
+  authProviderId  String?  @unique // id Clerk
+  createdAt       DateTime @default(now())
+
+  subscriptions      Subscription[]
+  payments           Payment[]
+  attempts           Attempt[]
+  writtenSubmissions WrittenSubmission[]
+  oralSubmissions    OralSubmission[]
+  examAttempts       ExamAttempt[]
+  bookings           Booking[]
+}
+
+enum PlanTier {
+  bronze
+  silver
+  gold
+  standard
+  premium
+  platinium
+}
+
+enum SubscriptionStatus {
+  active
+  expired
+  cancelled
+}
+
+model Subscription {
+  id        String             @id @default(cuid())
+  userId    String
+  user      User               @relation(fields: [userId], references: [id])
+  plan      PlanTier
+  startsAt  DateTime           @default(now())
+  endsAt    DateTime
+  status    SubscriptionStatus @default(active)
+  createdAt DateTime           @default(now())
+
+  @@index([userId])
+}
+
+enum PaymentMethod {
+  card
+  paypal
+  mobile_money
+}
+
+enum PaymentStatus {
+  pending
+  succeeded
+  failed
+  refunded
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  amount      Int // en cents
+  currency    String        @default("USD")
+  method      PaymentMethod
+  providerRef String?
+  status      PaymentStatus @default(pending)
+  createdAt   DateTime      @default(now())
+
+  @@index([userId])
+}
+
+// ---------- Contenu pédagogique ----------
+
+enum EpreuveEcriteOrale {
+  CE
+  CO
+}
+
+enum AccessLevel {
+  free
+  premium
+}
+
+model Serie {
+  id             String             @id @default(cuid())
+  epreuve        EpreuveEcriteOrale
+  number         Int
+  questionCount  Int
+  accessLevel    AccessLevel        @default(free)
+  createdAt      DateTime           @default(now())
+
+  questions Question[]
+  attempts  Attempt[]
+
+  @@unique([epreuve, number])
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  serieId   String
+  serie     Serie    @relation(fields: [serieId], references: [id])
+  type      String // "qcm", "vrai_faux", etc.
+  content   String
+  audioUrl  String?
+  choices   Json // string[]
+  correct   Json // index ou valeur attendue
+  points    Int      @default(1)
+  order     Int      @default(0)
+
+  @@index([serieId])
+}
+
+enum EpreuveExpression {
+  EE
+  EO
+}
+
+enum ContentStatus {
+  brouillon
+  programme
+  publie
+  archive
+}
+
+model Sujet {
+  id             String            @id @default(cuid())
+  epreuve        EpreuveExpression
+  tacheNumber    Int
+  titreInterne   String
+  consigne       String
+  niveauCecrl    String?
+  documentsJson  Json? // { doc1: string, doc2: string } — EE tâche 3 uniquement
+  dureeSuggeree  Int? // minutes
+  longueurMin    Int?
+  longueurMax    Int?
+  audioUrl       String?
+  reponseModele  String?
+  month          Int
+  year           Int
+  status         ContentStatus     @default(brouillon)
+  publishAt      DateTime?
+  tags           String[]
+  accessLevel    AccessLevel       @default(premium)
+  order          Int               @default(0)
+  createdAt      DateTime          @default(now())
+
+  writtenSubmissions WrittenSubmission[]
+  oralSubmissions    OralSubmission[]
+
+  @@index([epreuve, year, month])
+}
+
+// ---------- Pratique & IA ----------
+
+enum AttemptMode {
+  training
+  exam_blanc
+}
+
+model Attempt {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  serieId    String
+  serie      Serie       @relation(fields: [serieId], references: [id])
+  startedAt  DateTime    @default(now())
+  finishedAt DateTime?
+  answers    Json // réponses du candidat
+  score      Int?
+  mode       AttemptMode @default(training)
+
+  @@index([userId])
+  @@index([serieId])
+}
+
+model WrittenSubmission {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  sujetId      String
+  sujet        Sujet    @relation(fields: [sujetId], references: [id])
+  text         String
+  submittedAt  DateTime @default(now())
+  aiScore      Int?
+  aiFeedback   Json?
+
+  @@index([userId])
+  @@index([sujetId])
+}
+
+model OralSubmission {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  sujetId     String
+  sujet       Sujet    @relation(fields: [sujetId], references: [id])
+  mediaUrl    String
+  submittedAt DateTime @default(now())
+  score       Int?
+  feedback    Json?
+
+  @@index([userId])
+  @@index([sujetId])
+}
+
+// ---------- Examen blanc ----------
+
+model ExamAttempt {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  coScore       Int?
+  ceScore       Int?
+  eeScore       Int?
+  nclcLevels    Json? // { co, ce, ee, eo }
+  createdAt     DateTime @default(now())
+
+  attestation Attestation?
+
+  @@index([userId])
+}
+
+model Attestation {
+  id            String      @id @default(cuid())
+  examAttemptId String      @unique
+  examAttempt   ExamAttempt @relation(fields: [examAttemptId], references: [id])
+  pdfUrl        String
+  issuedAt      DateTime    @default(now())
+}
+
+// ---------- Examinateur (V3) ----------
+
+model Examiner {
+  id           String  @id @default(cuid())
+  name         String
+  bio          String
+  photoUrl     String?
+  habilitation String?
+
+  bookings Booking[]
+}
+
+enum BookingStatus {
+  scheduled
+  completed
+  cancelled
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  examinerId String
+  examiner   Examiner      @relation(fields: [examinerId], references: [id])
+  slotAt     DateTime
+  status     BookingStatus @default(scheduled)
+  zoomLink   String?
+  paymentId  String?
+
+  @@index([userId])
+  @@index([examinerId])
+}
+
+// ---------- Marketing ----------
+
+model BlogPost {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  excerpt     String?
+  contentMdx  String
+  coverUrl    String?
+  authorName  String?
+  category    String?
+  tags        String[]
+  status      ContentStatus @default(brouillon)
+  publishAt   DateTime?
+  pinned      Boolean       @default(false)
+  seoJson     Json?
+  createdAt   DateTime      @default(now())
+}
+
+model Coupon {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  discountPct   Int
+  validFrom     DateTime
+  validTo       DateTime
+  maxUses       Int?
+  uses          Int      @default(0)
+}

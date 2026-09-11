@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #FAFAFB;
+  --surface: #FFFFFF;
+  --bg-deep: #F3F2F8;
+  --ink: #121117;
+  --ink-soft: #55545F;
+  --ink-faint: #8F8E99;
+  --line: #EBE9EF;
+
+  --blue: #3346E0;
+  --blue-tint: #E7E9FC;
+  --blue-dark: #22319E;
+
+  --fuchsia: #FF7AAC;
+  --fuchsia-tint: #FFE7F0;
+  --fuchsia-ink: #C23C6B;
+
+  --green: #0E8A72;
+  --green-deco: #3DDABE;
+  --green-tint: #DFF7F1;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-bg-deep: var(--bg-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+
+  --color-blue: var(--blue);
+  --color-blue-tint: var(--blue-tint);
+  --color-blue-dark: var(--blue-dark);
+
+  --color-fuchsia: var(--fuchsia);
+  --color-fuchsia-tint: var(--fuchsia-tint);
+  --color-fuchsia-ink: var(--fuchsia-ink);
+
+  --color-green: var(--green);
+  --color-green-tint: var(--green-tint);
+  --color-green-deco: var(--green-deco);
+
+  --font-sans: var(--font-jakarta);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121117;
+    --surface: #1C1B22;
+    --bg-deep: #18171E;
+    --ink: #F5F4F8;
+    --ink-soft: #B4B2BE;
+    --ink-faint: #726F7C;
+    --line: #2C2A34;
+
+    --blue: #8092FF;
+    --blue-tint: #232B57;
+    --blue-dark: #B7C0FF;
+
+    --fuchsia: #FF9CC2;
+    --fuchsia-tint: #3D2430;
+    --fuchsia-ink: #FFB6D2;
+
+    --green: #5FE9C4;
+    --green-tint: #173A30;
+    --green-deco: #3DDABE;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #121117;
+  --surface: #1C1B22;
+  --bg-deep: #18171E;
+  --ink: #F5F4F8;
+  --ink-soft: #B4B2BE;
+  --ink-faint: #726F7C;
+  --line: #2C2A34;
+
+  --blue: #8092FF;
+  --blue-tint: #232B57;
+  --blue-dark: #B7C0FF;
+
+  --fuchsia: #FF9CC2;
+  --fuchsia-tint: #3D2430;
+  --fuchsia-ink: #FFB6D2;
+
+  --green: #5FE9C4;
+  --green-tint: #173A30;
+  --green-deco: #3DDABE;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
