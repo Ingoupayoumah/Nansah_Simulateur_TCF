@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SiteNav } from "@/components/site/SiteNav";
+import { SecondaryNav } from "@/components/site/SecondaryNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import "./globals.css";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fr" className={`${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <SiteNav />
+        <SecondaryNav />
         <main className="flex-1 flex flex-col">{children}</main>
         <SiteFooter />
       </body>

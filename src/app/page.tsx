@@ -5,6 +5,7 @@ import { WhyChooseCarousel } from "@/components/site/WhyChooseCarousel";
 import { PackCard, type PackFeature } from "@/components/site/PackCard";
 import { TestimonialsMarquee } from "@/components/site/TestimonialsMarquee";
 import { NCLCCalculator } from "@/components/site/NCLCCalculator";
+import { AnimatedNumber } from "@/components/site/AnimatedNumber";
 import {
   CheckIcon,
   ArrowRightIcon,
@@ -238,7 +239,8 @@ export default function Home() {
             <div className="anim-hero-card absolute top-4 left-2 w-[250px] rounded-2xl bg-surface shadow-lg p-6">
               <div className="flex justify-between items-baseline mb-2">
                 <span className="text-2xl font-extrabold">
-                  512<span className="text-sm text-ink-faint font-semibold"> /699</span>
+                  <AnimatedNumber value={512} />
+                  <span className="text-sm text-ink-faint font-semibold"> /699</span>
                 </span>
                 <span className="text-xs font-bold text-blue bg-blue-tint px-2.5 py-1 rounded-full">
                   NCLC 9
@@ -248,7 +250,7 @@ export default function Home() {
                 Compréhension orale
               </p>
               <div className="h-1.5 rounded-full bg-line overflow-hidden">
-                <div className="h-full w-[73%] rounded-full bg-green-deco" />
+                <div className="anim-score-bar h-full w-[73%] rounded-full bg-green-deco" />
               </div>
             </div>
             <div className="anim-hero-timer absolute top-[200px] left-16 bg-surface rounded-2xl px-5 py-4 shadow-lg text-center">

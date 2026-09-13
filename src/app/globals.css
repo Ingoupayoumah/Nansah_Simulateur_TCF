@@ -161,6 +161,25 @@ body {
     animation: hero-ring-breathe 5s ease-in-out infinite;
     transform-origin: center;
   }
+  .anim-score-bar {
+    animation: hero-score-fill 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+  }
+
+  /* Entrée générique, réutilisable pour n'importe quel bloc de contenu —
+     pas seulement le héros. anim-fade-up-1..5 échelonnent l'apparition. */
+  .anim-fade-up-1, .anim-fade-up-2, .anim-fade-up-3, .anim-fade-up-4, .anim-fade-up-5 {
+    animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .anim-fade-up-1 { animation-delay: 0.05s; }
+  .anim-fade-up-2 { animation-delay: 0.15s; }
+  .anim-fade-up-3 { animation-delay: 0.25s; }
+  .anim-fade-up-4 { animation-delay: 0.35s; }
+  .anim-fade-up-5 { animation-delay: 0.45s; }
+}
+
+@keyframes hero-score-fill {
+  from { width: 0%; }
+  to { width: 73%; }
 }
 
 /* ---------- Défilement continu — mur de témoignages ---------- */
