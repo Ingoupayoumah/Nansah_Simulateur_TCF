@@ -2,8 +2,9 @@ import Link from "next/link";
 import { HeroRotator } from "@/components/site/HeroRotator";
 import { TipsTicker } from "@/components/site/TipsTicker";
 import { WhyChooseCarousel } from "@/components/site/WhyChooseCarousel";
-import { PackCard } from "@/components/site/PackCard";
+import { PackCard, type PackFeature } from "@/components/site/PackCard";
 import { TestimonialsMarquee } from "@/components/site/TestimonialsMarquee";
+import { NCLCCalculator } from "@/components/site/NCLCCalculator";
 import {
   CheckIcon,
   ArrowRightIcon,
@@ -19,6 +20,9 @@ import {
   InfinityIcon,
   MedalIcon,
   UsersIcon,
+  TrendingUpIcon,
+  CpuIcon,
+  InfoCircleIcon,
 } from "@/components/icons";
 
 const epreuves = [
@@ -56,6 +60,19 @@ const epreuves = [
   },
 ];
 
+const featuresPlateforme: PackFeature[] = [
+  { text: "Compréhension Écrite : tests d'entraînement en conditions réelles" },
+  { text: "Compréhension Orale : tests d'entraînement en conditions réelles" },
+  { text: "Expression Orale : sujets d'actualité et corrections" },
+  { text: "Expression Écrite : sujets d'actualité et corrections" },
+  { text: "Contenus conformes à la version 2026 de l'examen" },
+  { text: "Bonus : accès illimité au simulateur d'expression écrite", kind: "bonus" },
+  {
+    text: "Nouveau : examen blanc illimité, toutes séries, avec attestation de niveau",
+    kind: "new",
+  },
+];
+
 const packsPlateforme = [
   {
     nom: "Bronze",
@@ -64,11 +81,7 @@ const packsPlateforme = [
     accent: "bg-green-deco",
     prix: "15",
     populaire: false,
-    features: [
-      "Accès à toutes les épreuves",
-      "Simulateur EE + EO (essais limités)",
-      "Examen blanc inclus",
-    ],
+    features: featuresPlateforme,
   },
   {
     nom: "Silver",
@@ -77,11 +90,7 @@ const packsPlateforme = [
     accent: "bg-blue",
     prix: "25",
     populaire: true,
-    features: [
-      "Accès à toutes les épreuves",
-      "Simulateur EE + EO (essais limités)",
-      "Examen blanc inclus",
-    ],
+    features: featuresPlateforme,
   },
   {
     nom: "Gold",
@@ -90,12 +99,14 @@ const packsPlateforme = [
     accent: "bg-fuchsia",
     prix: "39",
     populaire: false,
-    features: [
-      "Accès à toutes les épreuves",
-      "Simulateur EE + EO (essais limités)",
-      "Examen blanc inclus",
-    ],
+    features: featuresPlateforme,
   },
+];
+
+const featuresCoaching: PackFeature[] = [
+  { text: "Réservation de créneau avec un préparateur" },
+  { text: "Accès complet à la plateforme" },
+  { text: "Suivi personnalisé" },
 ];
 
 const packsCoaching = [
@@ -106,11 +117,7 @@ const packsCoaching = [
     accent: "bg-ink-fixed",
     prix: "50",
     populaire: false,
-    features: [
-      "Réservation de créneau avec un préparateur",
-      "Accès complet à la plateforme",
-      "Suivi personnalisé",
-    ],
+    features: featuresCoaching,
   },
   {
     nom: "Intensif",
@@ -119,11 +126,7 @@ const packsCoaching = [
     accent: "bg-blue-dark",
     prix: "80",
     populaire: true,
-    features: [
-      "Réservation de créneau avec un préparateur",
-      "Accès complet à la plateforme",
-      "Suivi personnalisé",
-    ],
+    features: featuresCoaching,
   },
   {
     nom: "Premium",
@@ -132,11 +135,7 @@ const packsCoaching = [
     accent: "bg-fuchsia",
     prix: "220",
     populaire: false,
-    features: [
-      "Réservation de créneau avec un préparateur",
-      "Accès complet à la plateforme",
-      "Suivi personnalisé",
-    ],
+    features: featuresCoaching,
   },
 ];
 
@@ -146,6 +145,50 @@ const trustStrip = [
   { Icon: CalendarIcon, label: "Programme flexible" },
   { Icon: InfinityIcon, label: "Accès à vie" },
   { Icon: CertificateIcon, label: "Attestation fournie" },
+];
+
+// Barème indicatif — à valider avec le barème officiel en vigueur avant publication.
+const nclcTable = [
+  { nclc: "10+", ce: "549-699", ee: "16-20", co: "549-699", eo: "16-20", tone: "bg-green-deco" },
+  { nclc: "9", ce: "524-548", ee: "14-15", co: "523-548", eo: "14-15", tone: "bg-green-deco" },
+  { nclc: "8", ce: "499-523", ee: "12-13", co: "503-522", eo: "12-13", tone: "bg-blue" },
+  { nclc: "7", ce: "453-498", ee: "10-11", co: "458-502", eo: "10-11", tone: "bg-blue" },
+  { nclc: "6", ce: "406-452", ee: "7-9", co: "398-457", eo: "7-9", tone: "bg-ink-fixed" },
+  { nclc: "5", ce: "375-405", ee: "6", co: "369-397", eo: "6", tone: "bg-ink-fixed" },
+  { nclc: "4", ce: "342-374", ee: "4-5", co: "331-368", eo: "4-5", tone: "bg-ink-fixed" },
+];
+
+const avantages = [
+  {
+    Icon: TrendingUpIcon,
+    nom: "Suivi des progrès",
+    desc: "Visualisez votre évolution et repérez immédiatement vos points à travailler.",
+  },
+  {
+    Icon: CpuIcon,
+    nom: "Correction par IA",
+    desc: "L'intelligence artificielle évalue vos productions écrites et vous renvoie un retour détaillé.",
+  },
+  {
+    Icon: CalendarIcon,
+    nom: "Contenu 2026",
+    desc: "Toutes nos ressources suivent les dernières évolutions de l'examen officiel.",
+  },
+  {
+    Icon: UsersIcon,
+    nom: "Suivi personnalisé",
+    desc: "Des formateurs expérimentés vous accompagnent tout au long de votre préparation.",
+  },
+  {
+    Icon: CertificateIcon,
+    nom: "Fidèle à l'examen",
+    desc: "Chaque simulation respecte le format, le temps et le barème du TCF officiel.",
+  },
+  {
+    Icon: InfinityIcon,
+    nom: "Disponible 24/7",
+    desc: "Entraînez-vous quand vous voulez, où que vous soyez, à votre rythme.",
+  },
 ];
 
 export default function Home() {
@@ -374,6 +417,79 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* TABLEAU NCLC */}
+      <section className="max-w-[1180px] mx-auto px-8 py-20">
+        <div className="rounded-3xl overflow-hidden border border-line shadow-lg">
+          <div className="bg-blue text-white text-center px-8 py-8">
+            <div className="flex items-center justify-center gap-2 text-xl font-extrabold">
+              <InfoCircleIcon />
+              Tableau d&apos;équivalence NCLC
+            </div>
+            <p className="text-white/85 text-sm mt-2">
+              Convertissez vos scores TCF Canada en niveau NCLC grâce à ce barème de référence.
+            </p>
+          </div>
+          <div className="overflow-x-auto bg-surface">
+            <table className="w-full text-sm min-w-[560px]">
+              <thead>
+                <tr className="bg-bg-deep text-left">
+                  <th className="px-6 py-3.5 font-bold">NCLC</th>
+                  <th className="px-6 py-3.5 font-bold">Comp. Écrite</th>
+                  <th className="px-6 py-3.5 font-bold">Exp. Écrite</th>
+                  <th className="px-6 py-3.5 font-bold">Comp. Orale</th>
+                  <th className="px-6 py-3.5 font-bold">Exp. Orale</th>
+                </tr>
+              </thead>
+              <tbody>
+                {nclcTable.map((row) => (
+                  <tr key={row.nclc} className="border-t border-line">
+                    <td className="px-6 py-3.5">
+                      <span
+                        className={`inline-block text-white text-xs font-extrabold rounded-lg px-2.5 py-1 ${row.tone}`}
+                      >
+                        {row.nclc}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3.5 text-ink-soft font-semibold">{row.ce}</td>
+                    <td className="px-6 py-3.5 text-ink-soft font-semibold">{row.ee}</td>
+                    <td className="px-6 py-3.5 text-ink-soft font-semibold">{row.co}</td>
+                    <td className="px-6 py-3.5 text-ink-soft font-semibold">{row.eo}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="bg-surface px-6 pb-6 text-xs text-ink-faint">
+            Barème donné à titre indicatif — vérifiez toujours vos résultats avec le barème
+            officiel en vigueur le jour de votre examen.
+          </p>
+        </div>
+      </section>
+
+      {/* CALCULATEUR NCLC */}
+      <NCLCCalculator />
+
+      {/* NOS AVANTAGES */}
+      <section className="max-w-[1180px] mx-auto px-8 py-20">
+        <div className="text-center max-w-[60ch] mx-auto mb-12">
+          <h2 className="text-3xl font-extrabold">Nos avantages</h2>
+          <p className="mt-3 text-ink-soft">
+            Tout ce qu&apos;il faut pour aborder votre TCF Canada avec confiance.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {avantages.map((a) => (
+            <div key={a.nom} className="rounded-2xl bg-bg-deep p-6">
+              <span className="w-12 h-12 rounded-full bg-blue flex items-center justify-center text-white mb-4">
+                <a.Icon className="w-5 h-5" />
+              </span>
+              <h3 className="font-extrabold mb-1.5">{a.nom}</h3>
+              <p className="text-sm text-ink-soft">{a.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 

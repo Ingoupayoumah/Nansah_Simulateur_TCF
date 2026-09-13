@@ -185,6 +185,36 @@ export function StarIcon({ className }: { className?: string }) {
   );
 }
 
+export function TrendingUpIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>
+      <path d="M3 17l6-6 4 4 8-8" />
+      <path d="M15 7h6v6" />
+    </svg>
+  );
+}
+
+export function CpuIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>
+      <rect x="7" y="7" width="10" height="10" rx="1.5" />
+      <rect x="3" y="10" width="2.5" height="4" />
+      <rect x="18.5" y="10" width="2.5" height="4" />
+      <rect x="10" y="3" width="4" height="2.5" />
+      <rect x="10" y="18.5" width="4" height="2.5" />
+    </svg>
+  );
+}
+
+export function InfoCircleIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5.5M12 7.5v.01" />
+    </svg>
+  );
+}
+
 export function LightbulbIcon({ className }: { className?: string }) {
   return (
     <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>

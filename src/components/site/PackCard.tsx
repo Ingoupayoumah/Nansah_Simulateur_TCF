@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { CheckIcon } from "@/components/icons";
+import { CheckIcon, CheckCircleIcon, StarIcon } from "@/components/icons";
+
+export type PackFeature = {
+  text: string;
+  kind?: "check" | "bonus" | "new";
+};
 
 type PackCardProps = {
   nom: string;
@@ -8,8 +13,14 @@ type PackCardProps = {
   accent: string;
   prix: string;
   populaire?: boolean;
-  features: string[];
+  features: PackFeature[];
 };
+
+function FeatureIcon({ kind }: { kind: PackFeature["kind"] }) {
+  if (kind === "bonus") return <CheckCircleIcon className="text-blue shrink-0 mt-0.5" />;
+  if (kind === "new") return <StarIcon className="text-fuchsia shrink-0 mt-1" />;
+  return <CheckIcon className="text-green shrink-0 mt-0.5" />;
+}
 
 export function PackCard({
   nom,
@@ -21,33 +32,25 @@ export function PackCard({
   features,
 }: PackCardProps) {
   return (
-    <div
-      className={`rounded-3xl bg-surface shadow-md overflow-hidden flex flex-col border transition hover:-translate-y-1 hover:shadow-lg ${
-        populaire ? "border-blue ring-1 ring-blue" : "border-line"
-      }`}
-    >
-      <div className="p-6 pb-5">
-        <div className="flex items-start justify-between mb-8">
-          <span
-            className={`w-11 h-11 rounded-xl flex items-center justify-center text-white ${accent}`}
-          >
-            <Icon className="w-5 h-5" />
+    <div className="group rounded-2xl overflow-hidden bg-surface border border-line hover:-translate-y-1 hover:shadow-lg transition flex flex-col">
+      <div className={`relative p-5 pb-6 ${accent}`}>
+        {populaire && (
+          <span className="absolute top-4 right-4 bg-white/25 text-white text-[11px] font-extrabold uppercase px-2.5 py-1 rounded-full">
+            Populaire
           </span>
-          {populaire && (
-            <span className="bg-blue text-white text-[11px] font-extrabold uppercase px-2.5 py-1 rounded-full mt-1">
-              Populaire
-            </span>
-          )}
-        </div>
-        <h4 className="text-lg font-extrabold">{nom}</h4>
-        <p className="text-xs text-ink-faint font-semibold mt-0.5">{duree}</p>
+        )}
+        <span className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-white mb-4">
+          <Icon className="w-5 h-5" />
+        </span>
+        <h3 className="text-white font-extrabold text-xl leading-snug">{nom}</h3>
+        <p className="text-white/80 text-xs font-semibold mt-1">{duree}</p>
       </div>
-      <div className="px-6 pb-6 flex-1 flex flex-col">
-        <ul className="flex flex-col gap-2 mb-5 text-sm text-ink-soft font-semibold">
+      <div className="p-5 flex-1 flex flex-col">
+        <ul className="flex flex-col gap-2.5 mb-5 text-sm text-ink-soft font-medium">
           {features.map((f) => (
-            <li key={f} className="flex gap-2 items-start">
-              <CheckIcon className="text-green shrink-0 mt-0.5" />
-              {f}
+            <li key={f.text} className="flex gap-2.5 items-start">
+              <FeatureIcon kind={f.kind} />
+              {f.text}
             </li>
           ))}
         </ul>
