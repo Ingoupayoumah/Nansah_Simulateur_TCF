@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# dossier local accidentel (copie du dossier Téléchargements de l'utilisateur — ne doit jamais être suivi)
+/reference/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

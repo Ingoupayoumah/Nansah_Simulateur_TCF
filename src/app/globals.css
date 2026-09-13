@@ -20,6 +20,12 @@
   --green: #0E8A72;
   --green-deco: #3DDABE;
   --green-tint: #DFF7F1;
+
+  /* Surfaces "toujours sombres" (bandeau CTA, plaques premium) — ne
+     s'inversent JAMAIS avec le thème, contrairement à --ink ci-dessus. */
+  --ink-fixed: #121117;
+  --ink-soft-fixed: #B4B2BE;
+  --ink-faint-fixed: #726F7C;
 }
 
 @theme inline {
@@ -43,6 +49,10 @@
   --color-green-tint: var(--green-tint);
   --color-green-deco: var(--green-deco);
 
+  --color-ink-fixed: var(--ink-fixed);
+  --color-ink-soft-fixed: var(--ink-soft-fixed);
+  --color-ink-faint-fixed: var(--ink-faint-fixed);
+
   --font-sans: var(--font-jakarta);
 }
 
@@ -52,8 +62,8 @@
     --surface: #1C1B22;
     --bg-deep: #18171E;
     --ink: #F5F4F8;
-    --ink-soft: #B4B2BE;
-    --ink-faint: #726F7C;
+    --ink-soft: #EDEBF1;
+    --ink-faint: #C2C0C9;
     --line: #2C2A34;
 
     --blue: #8092FF;
@@ -95,4 +105,81 @@
 body {
   background: var(--bg);
   color: var(--ink);
+}
+
+/* ---------- Animations premium — composition flottante du héros ---------- */
+/* Statique par défaut (à l'arrêt, et pour prefers-reduced-motion) ; le mouvement
+   n'est ajouté que si l'utilisateur n'a pas demandé de réduire les animations. */
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hero-float-card {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(-0.6deg); }
+}
+@keyframes hero-float-timer {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+@keyframes hero-float-badge-a {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-7px) translateX(-3px); }
+}
+@keyframes hero-float-badge-b {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(8px) translateX(3px); }
+}
+@keyframes hero-ring-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50% { transform: scale(1.035); opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-hero-card {
+    animation:
+      hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both,
+      hero-float-card 7s ease-in-out 0.8s infinite;
+  }
+  .anim-hero-timer {
+    animation:
+      hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both,
+      hero-float-timer 8s ease-in-out 0.92s infinite;
+  }
+  .anim-hero-badge-a {
+    animation:
+      hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both,
+      hero-float-badge-a 6s ease-in-out 1.04s infinite;
+  }
+  .anim-hero-badge-b {
+    animation:
+      hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both,
+      hero-float-badge-b 6.5s ease-in-out 1.14s infinite;
+  }
+  .anim-hero-ring {
+    animation: hero-ring-breathe 5s ease-in-out infinite;
+    transform-origin: center;
+  }
+}
+
+/* ---------- Défilement continu — mur de témoignages ---------- */
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee-scroll 42s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    overflow-x: auto;
+  }
 }

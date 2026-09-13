@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SiteNav } from "@/components/site/SiteNav";
+import { SiteFooter } from "@/components/site/SiteFooter";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -23,7 +25,11 @@ const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const body = (
     <html lang="fr" className={`${jakarta.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <SiteNav />
+        <main className="flex-1 flex flex-col">{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 
