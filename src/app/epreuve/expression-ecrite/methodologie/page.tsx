@@ -86,18 +86,7 @@ const criteres = [
 
 export default function MethodologieExpressionEcritePage() {
   return (
-    <div
-      data-theme="dark"
-      style={
-        {
-          // Couleurs neutres inversées (blanc ↔ noir) via notre thème sombre déjà
-          // construit — le bleu, lui, reste fixé à sa valeur habituelle.
-          "--blue": "#3346E0",
-          "--blue-tint": "#E7E9FC",
-          "--blue-dark": "#22319E",
-        } as React.CSSProperties
-      }
-    >
+    <div>
       <section className="bg-gradient-to-br from-blue to-blue-dark">
         <div className="max-w-[860px] mx-auto px-8 py-14">
           <Link
