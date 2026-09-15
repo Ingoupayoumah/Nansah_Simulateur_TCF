@@ -32,5 +32,8 @@
     "@prisma/engines@6.19.3": true,
     "prisma@6.19.3": true,
     "unrs-resolver@1.12.2": true
+  },
+  "overrides": {
+    "jose": "4.15.9"
   }
 }
