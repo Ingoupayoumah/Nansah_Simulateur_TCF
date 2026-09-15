@@ -450,7 +450,9 @@ export default function Home() {
                   <tr key={row.nclc} className="border-t border-line">
                     <td className="px-6 py-3.5">
                       <span
-                        className={`inline-block text-white text-xs font-extrabold rounded-lg px-2.5 py-1 ${row.tone}`}
+                        className={`inline-block text-xs font-extrabold rounded-lg px-2.5 py-1 ${row.tone} ${
+                          row.tone === "bg-ink-fixed" ? "text-ink" : "text-white"
+                        }`}
                       >
                         {row.nclc}
                       </span>
@@ -500,9 +502,9 @@ export default function Home() {
 
       {/* CTA BANNER */}
       <section className="max-w-[1180px] mx-auto px-8 pb-20">
-        <div className="relative overflow-hidden rounded-[28px] bg-ink-fixed text-white p-10 md:p-14 grid md:grid-cols-[1fr_.8fr] gap-10 items-center">
+        <div className="relative overflow-hidden rounded-[28px] bg-ink-fixed text-ink p-10 md:p-14 grid md:grid-cols-[1fr_.8fr] gap-10 items-center">
           <div>
-            <h2 className="text-3xl font-extrabold max-w-[15ch] text-white">
+            <h2 className="text-3xl font-extrabold max-w-[15ch] text-ink">
               Prêt à passer votre TCF avec confiance ?
             </h2>
             <p className="mt-3.5 text-ink-soft-fixed max-w-[40ch] text-[15px]">

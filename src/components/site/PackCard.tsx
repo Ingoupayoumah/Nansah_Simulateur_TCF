@@ -60,7 +60,7 @@ export function PackCard({
         </div>
         <Link
           href={`/tarification#${nom.toLowerCase().replace(/\s+/g, "-")}`}
-          className="text-center rounded-full font-bold text-sm px-5 py-2.5 bg-ink-fixed text-white transition-colors duration-300 hover:bg-blue"
+          className="text-center rounded-full font-bold text-sm px-5 py-2.5 bg-ink text-white transition-colors duration-300 hover:bg-blue"
         >
           S&apos;abonner
         </Link>

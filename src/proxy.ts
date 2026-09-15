@@ -1,11 +1,13 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Clerk n'est activé que lorsque ses clés sont configurées (voir src/app/layout.tsx) —
-// sans ça, on laisse passer les requêtes sans protection le temps du développement local.
-const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
-
-export default clerkEnabled ? clerkMiddleware() : () => NextResponse.next();
+// Le proxy tourne en runtime Edge, qui ne supporte pas firebase-admin (Node.js
+// uniquement) — la vérification cryptographique du cookie de session se fait
+// donc dans les Server Components / routes API, pas ici. Ce fichier reste un
+// simple point d'entrée pour le jour où on ajoutera un contrôle d'accès léger
+// (ex. rediriger vers /connexion si le cookie __session est absent).
+export default function proxy() {
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [

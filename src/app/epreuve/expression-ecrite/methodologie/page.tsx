@@ -86,7 +86,18 @@ const criteres = [
 
 export default function MethodologieExpressionEcritePage() {
   return (
-    <>
+    <div
+      data-theme="dark"
+      style={
+        {
+          // Couleurs neutres inversées (blanc ↔ noir) via notre thème sombre déjà
+          // construit — le bleu, lui, reste fixé à sa valeur habituelle.
+          "--blue": "#3346E0",
+          "--blue-tint": "#E7E9FC",
+          "--blue-dark": "#22319E",
+        } as React.CSSProperties
+      }
+    >
       <section className="bg-gradient-to-br from-blue to-blue-dark">
         <div className="max-w-[860px] mx-auto px-8 py-14">
           <Link
@@ -239,7 +250,7 @@ export default function MethodologieExpressionEcritePage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-3xl bg-ink-fixed text-white p-8 text-center">
+        <section className="rounded-3xl bg-ink-fixed text-ink p-8 text-center">
           <div className="flex justify-center mb-3">
             <BookOpenIcon className="w-8 h-8 text-blue" />
           </div>
@@ -257,6 +268,6 @@ export default function MethodologieExpressionEcritePage() {
           </Link>
         </section>
       </div>
-    </>
+    </div>
   );
 }

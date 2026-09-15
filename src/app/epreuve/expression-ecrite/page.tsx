@@ -26,7 +26,7 @@ Le quartier est calme et agréable, avec toutes les commodités à proximité : 
 N'hésitez pas à me contacter si vous souhaitez visiter l'appartement ou si vous avez d'autres questions.
 
 Cordialement,
-Ayoub`,
+Karim`,
   },
   {
     numero: 2,

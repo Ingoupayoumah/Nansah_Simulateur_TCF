@@ -49,9 +49,9 @@ const tips: Record<Skill, string> = {
 };
 
 function toneFor(rank: number) {
-  if (rank >= 9) return "bg-green-deco";
-  if (rank >= 7) return "bg-blue";
-  if (rank >= 4) return "bg-ink-fixed";
+  if (rank >= 9) return "bg-green-deco text-white";
+  if (rank >= 7) return "bg-blue text-white";
+  if (rank >= 4) return "bg-ink-fixed text-ink";
   return "bg-line text-ink";
 }
 
@@ -157,7 +157,7 @@ export function NCLCCalculator() {
                       {skillMeta[r.skill].label}
                     </span>
                     <span
-                      className={`text-white text-xs font-extrabold rounded-lg px-2.5 py-1 shrink-0 ${toneFor(r.rank)}`}
+                      className={`text-xs font-extrabold rounded-lg px-2.5 py-1 shrink-0 ${toneFor(r.rank)}`}
                     >
                       NCLC {r.level}
                     </span>

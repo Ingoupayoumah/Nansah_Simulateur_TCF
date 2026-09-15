@@ -6,9 +6,8 @@ export function AuthNotConfigured() {
           Authentification pas encore configurée
         </h1>
         <p className="text-ink-soft text-sm leading-relaxed">
-          Ajoute <code className="font-mono">NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code> et{" "}
-          <code className="font-mono">CLERK_SECRET_KEY</code> dans{" "}
-          <code className="font-mono">.env.local</code> (voir{" "}
+          Ajoute les variables <code className="font-mono">NEXT_PUBLIC_FIREBASE_*</code>{" "}
+          dans <code className="font-mono">.env.local</code> (voir{" "}
           <code className="font-mono">.env.example</code>) pour activer la
           connexion.
         </p>

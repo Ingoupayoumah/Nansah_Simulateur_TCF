@@ -21,11 +21,11 @@
   --green-deco: #3DDABE;
   --green-tint: #DFF7F1;
 
-  /* Surfaces "toujours sombres" (bandeau CTA, plaques premium) — ne
+  /* Surfaces "toujours blanc cassé" (bandeau CTA, plaques premium) — ne
      s'inversent JAMAIS avec le thème, contrairement à --ink ci-dessus. */
-  --ink-fixed: #121117;
-  --ink-soft-fixed: #B4B2BE;
-  --ink-faint-fixed: #726F7C;
+  --ink-fixed: #F2EBDA;
+  --ink-soft-fixed: #57534A;
+  --ink-faint-fixed: #857F6E;
 }
 
 @theme inline {
