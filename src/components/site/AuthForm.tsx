@@ -7,9 +7,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
+import { EyeIcon, EyeOffIcon } from "@/components/icons";
 
 async function openSession(idToken: string) {
   const res = await fetch("/api/session", {
@@ -24,6 +27,10 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nom, setNom] = useState("");
+  const [ville, setVille] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,11 +47,29 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
     setLoading(true);
     setError(null);
     try {
-      const cred =
-        mode === "inscription"
-          ? await createUserWithEmailAndPassword(auth, email, password)
-          : await signInWithEmailAndPassword(auth, email, password);
-      await afterAuth(cred.user);
+      if (mode === "inscription") {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: nom });
+        if (db) {
+          const write = setDoc(doc(db, "users", cred.user.uid), {
+            nom,
+            ville,
+            telephone,
+            email,
+            createdAt: serverTimestamp(),
+          });
+          const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
+          // Le profil détaillé (Firestore) ne doit jamais bloquer la
+          // création du compte — si l'écriture échoue ou traîne (ex.
+          // Firestore pas encore activé côté Firebase), on continue quand
+          // même : le compte Auth existe, c'est le principal.
+          await Promise.race([write.catch(() => undefined), timeout]);
+        }
+        await afterAuth(cred.user);
+      } else {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        await afterAuth(cred.user);
+      }
     } catch {
       setError(
         mode === "inscription"
@@ -103,6 +128,22 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {mode === "inscription" && (
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-bold" htmlFor="nom">
+              Nom complet
+            </label>
+            <input
+              id="nom"
+              type="text"
+              required
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              className="rounded-xl border border-line bg-bg-deep px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
+            />
+          </div>
+        )}
+
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-bold" htmlFor="email">
             Email
@@ -116,19 +157,61 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
             className="rounded-xl border border-line bg-bg-deep px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
           />
         </div>
+
+        {mode === "inscription" && (
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-bold" htmlFor="ville">
+                Ville
+              </label>
+              <input
+                id="ville"
+                type="text"
+                required
+                value={ville}
+                onChange={(e) => setVille(e.target.value)}
+                className="rounded-xl border border-line bg-bg-deep px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-bold" htmlFor="telephone">
+                Téléphone
+              </label>
+              <input
+                id="telephone"
+                type="tel"
+                required
+                value={telephone}
+                onChange={(e) => setTelephone(e.target.value)}
+                className="rounded-xl border border-line bg-bg-deep px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
+              />
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-bold" htmlFor="password">
             Mot de passe
           </label>
-          <input
-            id="password"
-            type="password"
-            required
-            minLength={6}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="rounded-xl border border-line bg-bg-deep px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-xl border border-line bg-bg-deep px-4 py-3 pr-11 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-faint hover:text-ink-soft transition"
+            >
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+            </button>
+          </div>
         </div>
 
         {error && <p className="text-sm text-fuchsia-ink font-semibold">{error}</p>}
