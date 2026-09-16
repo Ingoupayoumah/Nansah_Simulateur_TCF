@@ -10,15 +10,17 @@ import {
   updateProfile,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { EyeIcon, EyeOffIcon } from "@/components/icons";
 
-async function openSession(idToken: string) {
+async function openSession(
+  idToken: string,
+  profile?: { nom: string; ville: string; telephone: string }
+) {
   const res = await fetch("/api/session", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idToken }),
+    body: JSON.stringify({ idToken, ...profile }),
   });
   if (!res.ok) throw new Error("Impossible d'ouvrir la session.");
 }
@@ -34,9 +36,12 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function afterAuth(user: { getIdToken: () => Promise<string> }) {
+  async function afterAuth(
+    user: { getIdToken: () => Promise<string> },
+    profile?: { nom: string; ville: string; telephone: string }
+  ) {
     const idToken = await user.getIdToken();
-    await openSession(idToken);
+    await openSession(idToken, profile);
     router.push("/mon-compte");
     router.refresh();
   }
@@ -50,22 +55,7 @@ export function AuthForm({ mode }: { mode: "connexion" | "inscription" }) {
       if (mode === "inscription") {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(cred.user, { displayName: nom });
-        if (db) {
-          const write = setDoc(doc(db, "users", cred.user.uid), {
-            nom,
-            ville,
-            telephone,
-            email,
-            createdAt: serverTimestamp(),
-          });
-          const timeout = new Promise((resolve) => setTimeout(resolve, 4000));
-          // Le profil détaillé (Firestore) ne doit jamais bloquer la
-          // création du compte — si l'écriture échoue ou traîne (ex.
-          // Firestore pas encore activé côté Firebase), on continue quand
-          // même : le compte Auth existe, c'est le principal.
-          await Promise.race([write.catch(() => undefined), timeout]);
-        }
-        await afterAuth(cred.user);
+        await afterAuth(cred.user, { nom, ville, telephone });
       } else {
         const cred = await signInWithEmailAndPassword(auth, email, password);
         await afterAuth(cred.user);
