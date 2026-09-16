@@ -9,10 +9,24 @@ const taches = [
     numero: 1,
     titre: "Tâche 1",
     type: "Entretien dirigé",
-    mots: "4-6 questions",
+    mots: "Sans préparation",
     duree: "2 min",
     consigne:
-      "Vous voulez louer un vélo pour la journée dans une ville touristique. Posez au moins quatre questions à l'employé du magasin de location pour obtenir toutes les informations nécessaires (tarifs, horaires, équipement, conditions).",
+      "L'examinateur vous pose quelques questions pour faire connaissance. Répondez naturellement, en développant un peu chaque réponse (exemples de questions : Quel est votre film préféré ? Où avez-vous appris le français ? Qu'aimez-vous faire le week-end ?).",
+    correction: `Mon film préféré, c'est plutôt une comédie française, parce que j'aime rire et ça me détend après une longue journée.
+
+J'ai appris le français à l'école, mais surtout en le pratiquant au quotidien depuis que je vis ici — c'est ce qui m'a vraiment aidé à progresser.
+
+Le week-end, j'aime bien me promener dehors, surtout quand il fait beau, et retrouver des amis pour manger ensemble.`,
+  },
+  {
+    numero: 2,
+    titre: "Tâche 2",
+    type: "Interaction avec préparation",
+    mots: "4-6 questions",
+    duree: "5 min 30",
+    consigne:
+      "Vous voulez louer un vélo pour la journée dans une ville touristique. Après un temps de préparation, posez au moins quatre questions à l'examinateur, qui joue le rôle de l'employé du magasin de location, pour obtenir toutes les informations nécessaires (tarifs, horaires, équipement, conditions).",
     correction: `Bonjour, je voudrais louer un vélo pour la journée, est-ce que c'est possible ?
 
 Quel est le tarif pour une journée complète ?
@@ -26,28 +40,16 @@ Est-ce qu'il y a une caution à payer au départ ?
 Merci beaucoup, je vais réfléchir et je reviens vous voir.`,
   },
   {
-    numero: 2,
-    titre: "Tâche 2",
-    type: "Discussion suivie",
-    mots: "Avis + exemples",
-    duree: "3 min",
+    numero: 3,
+    titre: "Tâche 3",
+    type: "Expression spontanée",
+    mots: "Monologue argumenté",
+    duree: "4 min 30",
     consigne:
-      "Certaines personnes préfèrent travailler à distance, d'autres préfèrent aller au bureau tous les jours. Qu'en pensez-vous ? Présentez votre opinion et justifiez-la avec des exemples.",
+      "Certaines personnes préfèrent travailler à distance, d'autres préfèrent aller au bureau tous les jours. Développez votre point de vue sur ce sujet, seul face à l'examinateur, sans préparation.",
     correction: `Personnellement, je pense que le télétravail présente de vrais avantages, surtout pour l'équilibre entre vie professionnelle et vie personnelle. Par exemple, quand je travaillais à distance, je gagnais presque une heure par jour en évitant les transports, ce qui me permettait de mieux dormir et d'être plus concentré.
 
 Cela dit, je comprends aussi que certaines personnes aient besoin du contact direct avec leurs collègues pour rester motivées. À mon avis, l'idéal serait une formule hybride, avec deux ou trois jours au bureau et le reste à la maison. Ça permettrait de profiter des deux avantages à la fois.`,
-  },
-  {
-    numero: 3,
-    titre: "Tâche 3",
-    type: "Débat argumenté",
-    mots: "2 arguments min.",
-    duree: "7 min",
-    consigne:
-      "Certains pensent que les réseaux sociaux devraient être interdits aux moins de 16 ans. Défendez votre position face à l'examinateur, qui vous présentera des arguments contraires.",
-    correction: `À mon avis, une interdiction avant 16 ans est justifiée, car les jeunes adolescents sont particulièrement vulnérables à la comparaison sociale et au harcèlement en ligne, ce qui peut avoir un impact réel sur leur santé mentale.
-
-Certes, les réseaux sociaux permettent de rester en contact avec ses amis, mais il existe d'autres moyens de communiquer, comme la messagerie instantanée classique, qui posent moins de risques d'exposition publique. Je pense donc qu'un encadrement strict, voire une interdiction temporaire, reste la solution la plus responsable, même si cela demande un effort d'adaptation de la part des familles.`,
   },
 ];
 
@@ -64,9 +66,9 @@ export default function ExpressionOralePage() {
               TCF Canada
             </h1>
             <p className="text-white/85 mt-4 max-w-[54ch]">
-              Entraînez-vous à l&apos;entretien dirigé, à la discussion suivie et au
-              débat argumenté pour maîtriser les 3 tâches de l&apos;épreuve, comme le
-              jour de l&apos;examen.
+              Entraînez-vous à l&apos;entretien dirigé, à l&apos;interaction avec
+              préparation et à l&apos;expression spontanée pour maîtriser les 3 tâches
+              de l&apos;épreuve, comme le jour de l&apos;examen.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
               <Link

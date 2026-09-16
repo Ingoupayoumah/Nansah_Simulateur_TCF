@@ -4,8 +4,8 @@ import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSe
 
 const taches = [
   { numero: 1, titre: "Tâche 1", detail: "Entretien dirigé (2 min)", tone: "bg-blue" },
-  { numero: 2, titre: "Tâche 2", detail: "Discussion suivie (3 min)", tone: "bg-green" },
-  { numero: 3, titre: "Tâche 3", detail: "Débat argumenté (7 min)", tone: "bg-fuchsia" },
+  { numero: 2, titre: "Tâche 2", detail: "Interaction préparée (5 min 30)", tone: "bg-green" },
+  { numero: 3, titre: "Tâche 3", detail: "Expression spontanée (4 min 30)", tone: "bg-fuchsia" },
 ];
 
 export default function CombinaisonsExpressionOralePage() {
@@ -29,7 +29,8 @@ export default function CombinaisonsExpressionOralePage() {
           </h1>
           <p className="text-white/85 mt-4 max-w-[58ch] mx-auto">
             Chaque combinaison regroupe les 3 tâches complètes de l&apos;expression
-            orale : entretien dirigé, discussion suivie et débat argumenté.
+            orale : entretien dirigé, interaction avec préparation et expression
+            spontanée.
           </p>
           <button
             type="button"

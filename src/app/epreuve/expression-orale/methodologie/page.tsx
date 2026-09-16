@@ -8,69 +8,70 @@ import {
 import { AnimatedNumber } from "@/components/site/AnimatedNumber";
 
 const repartition = [
-  { duree: 2, label: "Tâche 1 — Entretien dirigé" },
-  { duree: 3, label: "Tâche 2 — Discussion suivie" },
-  { duree: 7, label: "Tâche 3 — Débat argumenté" },
+  { temps: "2 min", label: "Tâche 1 — Entretien dirigé" },
+  { temps: "5 min 30", label: "Tâche 2 — Interaction avec préparation" },
+  { temps: "4 min 30", label: "Tâche 3 — Expression spontanée" },
 ];
 
 const taches = [
   {
     numero: 1,
     titre: "Tâche 1 : Entretien dirigé",
-    meta: "Environ 2 minutes · Niveau A2-B1",
+    meta: "2 minutes · Sans préparation · Niveau A1-A2",
     format:
-      "La tâche la plus accessible de l'épreuve. À partir d'une mise en situation (une annonce, un document, un contexte donné), vous devez poser des questions pertinentes à l'examinateur pour obtenir des informations, comme dans une vraie conversation.",
+      "La tâche la plus accessible de l'épreuve. C'est l'examinateur qui vous pose des questions simples sur vous — vos goûts, vos habitudes, votre parcours — comme dans une première rencontre. Vous n'avez rien à préparer, il suffit de répondre naturellement.",
     structure: [
-      { titre: "Prise de contact", desc: "Saluez et présentez brièvement l'objet de votre demande." },
-      { titre: "Questions ciblées", desc: "Posez 4 à 6 questions claires et bien formulées, liées au document." },
-      { titre: "Clôture", desc: "Remerciez et concluez poliment l'échange." },
+      { titre: "Écoute", desc: "Laissez l'examinateur poser sa question en entier avant de répondre." },
+      { titre: "Réponse développée", desc: "Répondez par une phrase complète, jamais par un simple oui/non." },
+      { titre: "Précision", desc: "Ajoutez un détail ou une justification à chaque réponse." },
     ],
     conseils: [
-      "Adaptez le registre de langue à la situation : plus formel avec un professionnel, plus détendu entre amis.",
-      "Variez les formes interrogatives (est-ce que, inversion, intonation) pour montrer votre aisance.",
-      "Écoutez la réponse de l'examinateur avant d'enchaîner avec la question suivante.",
-      "Évitez les questions fermées répétitives — creusez un sujet avec des questions de relance.",
+      "Ne mémorisez pas de réponses toutes faites — l'examinateur adapte ses questions à vous.",
+      "Développez toujours un peu votre réponse (« j'aime le cinéma, surtout les comédies, parce que... »).",
+      "Restez calme, c'est la tâche la plus accessible de l'épreuve.",
+      "Articulez clairement : la prononciation est déjà évaluée dès cette première tâche.",
     ],
     callout: null as string | null,
   },
   {
     numero: 2,
-    titre: "Tâche 2 : Discussion suivie",
-    meta: "Environ 3 minutes · Niveau B1-B2",
+    titre: "Tâche 2 : Interaction avec préparation",
+    meta: "5 minutes 30 · Avec préparation · Niveau B1-B2",
     callout:
-      "Point important : on attend ici une vraie conversation avec l'examinateur, pas un monologue appris par cœur — restez naturel et réactif.",
+      "Ici, les rôles s'inversent : c'est vous qui menez l'échange. L'examinateur incarne un rôle précis (agent, responsable, particulier) et attend vos questions.",
     format:
-      "Vous recevez un sujet du quotidien (vos habitudes, vos loisirs, votre travail, un choix de vie) et devez en parler, donner votre avis, puis répondre aux relances de l'examinateur qui approfondit certains points.",
+      "Vous recevez un thème de la vie quotidienne et un temps de préparation pour noter vos questions. Vous devez ensuite interroger l'examinateur, qui joue un rôle (par exemple un loueur de vélos ou un gardien d'animaux), pour obtenir des informations concrètes.",
     structure: [
-      { titre: "Introduction du sujet", desc: "Présentez votre position ou votre expérience en une ou deux phrases." },
-      { titre: "Développement", desc: "Justifiez avec des exemples concrets tirés de votre vécu." },
-      { titre: "Échange", desc: "Répondez aux questions de relance avec précision, sans éluder." },
+      { titre: "Préparation", desc: "Notez 4 à 6 questions précises et variées pendant le temps imparti." },
+      { titre: "Ouverture", desc: "Saluez et introduisez clairement l'objet de votre demande." },
+      { titre: "Questions", desc: "Posez vos questions dans un ordre logique, en réagissant aux réponses." },
     ],
     conseils: [
-      "Préparez des exemples personnels réutilisables sur des thèmes courants (études, travail, voyages, technologies).",
-      "Structurez vos réponses avec des connecteurs simples : d'abord, ensuite, par exemple, du coup.",
-      "N'ayez pas peur de nuancer votre avis — « d'un côté... de l'autre... » montre une bonne maîtrise.",
-      "Gardez un débit naturel, ni trop lent ni précipité.",
+      "Profitez pleinement du temps de préparation pour structurer vos questions à l'avance.",
+      "Variez les formes interrogatives (est-ce que, inversion, mots interrogatifs).",
+      "Enchaînez avec une question de relance selon la réponse de l'examinateur.",
+      "Adaptez le registre de langue au rôle joué par l'examinateur.",
     ],
   },
   {
     numero: 3,
-    titre: "Tâche 3 : Débat argumenté",
-    meta: "Environ 7 minutes · Niveau B2-C2",
+    titre: "Tâche 3 : Expression spontanée",
+    meta: "4 minutes 30 · Sans préparation · Niveau B2-C2",
+    callout:
+      "Contrairement à une idée reçue, ce n'est pas un débat : l'examinateur ne vous interrompt pas et ne vous contredit pas. Vous développez votre point de vue seul, en continu.",
     format:
-      "La tâche la plus exigeante de l'épreuve. L'examinateur vous soumet une affirmation ou une question de société et joue volontairement l'avocat du diable, pour tester votre capacité à défendre votre position, nuancer et réagir à la contradiction.",
+      "L'examinateur vous pose une question ouverte de société, sans préparation possible. Vous devez développer un point de vue argumenté et structuré, seul, pendant environ 4 minutes 30, sans interaction avec l'examinateur pendant votre prise de parole.",
     structure: [
-      { titre: "Prise de position", desc: "Annoncez clairement votre opinion dès le début." },
-      { titre: "Argumentation", desc: "Développez au moins deux arguments solides, illustrés d'exemples." },
-      { titre: "Réfutation", desc: "Répondez aux objections de l'examinateur sans perdre le fil de votre position." },
+      { titre: "Introduction", desc: "Reformulez le sujet et annoncez votre position en quelques secondes." },
+      { titre: "Développement", desc: "Exposez 2 à 3 arguments illustrés d'exemples concrets." },
+      { titre: "Conclusion", desc: "Résumez votre position en une phrase de synthèse." },
     ],
     conseils: [
-      "Ne changez pas d'avis sous la pression — nuancez plutôt votre position.",
-      "Utilisez des connecteurs d'opposition et de concession : certes... mais, bien que, cela dit.",
-      "Anticipez les contre-arguments évidents et préparez une réponse.",
-      "Gardez un ton respectueux même en désaccord avec l'examinateur.",
+      "Prenez quelques secondes pour organiser vos idées avant de commencer à parler.",
+      "Structurez avec des connecteurs logiques : d'abord, de plus, cependant, enfin.",
+      "Illustrez chaque argument par un exemple concret ou personnel.",
+      "Gérez votre temps — ne vous arrêtez pas trop tôt, mais ne vous répétez pas non plus.",
     ],
-    callout: null as string | null,
   },
 ];
 
@@ -78,7 +79,7 @@ const criteres = [
   { titre: "Fluidité", desc: "Débit naturel, peu d'hésitations, enchaînement fluide des idées." },
   { titre: "Vocabulaire", desc: "Richesse et précision lexicale, peu de répétitions." },
   { titre: "Grammaire", desc: "Correction grammaticale à l'oral et variété des structures." },
-  { titre: "Interaction", desc: "Capacité à réagir aux questions et relances de l'examinateur." },
+  { titre: "Adéquation à la tâche", desc: "Capacité à s'adapter à chaque exercice : répondre, interroger, puis argumenter seul." },
 ];
 
 export default function MethodologieExpressionOralePage() {
@@ -124,16 +125,16 @@ export default function MethodologieExpressionOralePage() {
       <div className="max-w-[860px] mx-auto px-8 py-14 flex flex-col gap-12">
         {/* GESTION DU TEMPS */}
         <section className="anim-fade-up-1 rounded-3xl bg-bg-deep p-6 sm:p-8">
-          <h2 className="font-extrabold text-lg mb-2">Gestion du temps recommandée</h2>
+          <h2 className="font-extrabold text-lg mb-2">Répartition officielle du temps</h2>
           <p className="text-ink-soft text-sm mb-6">
-            L&apos;examinateur guide le déroulement de l&apos;épreuve, mais connaître
-            cette répartition vous aide à structurer vos réponses et à ne pas être pris
-            de court.
+            Contrairement à l&apos;expression écrite, ces durées sont fixes et gérées
+            par l&apos;examinateur — vous n&apos;avez pas à surveiller le temps
+            vous-même, mais les connaître aide à ne pas être pris de court.
           </p>
           <div className="grid sm:grid-cols-3 gap-4">
             {repartition.map((r) => (
               <div key={r.label} className="rounded-2xl bg-surface p-5 text-center">
-                <div className="text-blue font-extrabold text-2xl">{r.duree} min</div>
+                <div className="text-blue font-extrabold text-2xl">{r.temps}</div>
                 <div className="text-ink-soft text-sm font-semibold mt-1">{r.label}</div>
               </div>
             ))}
