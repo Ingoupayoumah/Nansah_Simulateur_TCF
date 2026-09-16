@@ -290,6 +290,23 @@ export function ChevronDownIcon({ className }: { className?: string }) {
   );
 }
 
+export function ChevronRightIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" {...stroke}>
+      <path d="M9 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+export function TagIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" {...stroke}>
+      <path d="M11.5 3.5H5a1.5 1.5 0 00-1.5 1.5v6.5a1.5 1.5 0 00.44 1.06l8 8a1.5 1.5 0 002.12 0l6.5-6.5a1.5 1.5 0 000-2.12l-8-8a1.5 1.5 0 00-1.06-.44Z" />
+      <circle cx="8.5" cy="8.5" r="1.25" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function LightbulbIcon({ className }: { className?: string }) {
   return (
     <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>
