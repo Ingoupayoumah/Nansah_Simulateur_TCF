@@ -89,7 +89,7 @@ export default function ExpressionEcritePage() {
                 Méthodologie et Astuces
               </Link>
               <Link
-                href="#sujets"
+                href="/epreuve/expression-ecrite/combinaisons"
                 className="inline-flex items-center gap-2 rounded-full bg-white/20 text-white font-bold text-sm px-5 py-3 hover:bg-white/30 transition"
               >
                 <CalendarIcon className="w-4 h-4" />

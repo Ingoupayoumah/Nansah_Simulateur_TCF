@@ -13,7 +13,7 @@ import {
 
 const links = [
   { href: "/", label: "Accueil", Icon: HomeIcon },
-  { href: "/epreuve/expression-ecrite", label: "Expression écrite", Icon: PencilIcon },
+  { href: "/epreuve/expression-ecrite/combinaisons", label: "Expression écrite", Icon: PencilIcon },
   { href: "/epreuve/expression-orale", label: "Expression orale", Icon: MicIcon },
   { href: "/epreuve/comprehension-ecrite", label: "Compréhension écrite", Icon: BookOpenIcon },
   { href: "/epreuve/comprehension-orale", label: "Compréhension orale", Icon: HeadphonesIcon },
