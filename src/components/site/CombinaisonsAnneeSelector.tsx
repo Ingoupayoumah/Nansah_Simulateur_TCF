@@ -26,7 +26,7 @@ function combinaisonsPlaceholder(index: number) {
   return 4 + ((index * 7) % 12);
 }
 
-export function CombinaisonsAnneeSelector() {
+export function CombinaisonsAnneeSelector({ basePath }: { basePath: string }) {
   const [annee, setAnnee] = useState(ANNEES[0]);
 
   return (
@@ -59,7 +59,7 @@ export function CombinaisonsAnneeSelector() {
           {MOIS.map((mois, i) => (
             <Link
               key={mois}
-              href={`/epreuve/expression-ecrite/combinaisons/${annee}/${mois.toLowerCase()}`}
+              href={`${basePath}/${annee}/${mois.toLowerCase()}`}
               className="group text-left rounded-2xl border border-line bg-surface p-5 hover:border-blue hover:shadow-md transition"
             >
               <span className="w-11 h-11 rounded-xl bg-blue flex items-center justify-center text-white mb-4">

@@ -3,33 +3,33 @@ import { LayersIcon, StarIcon } from "@/components/icons";
 import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSelector";
 
 const taches = [
-  { numero: 1, titre: "Tâche 1", detail: "Message (60-120 mots)", tone: "bg-blue" },
-  { numero: 2, titre: "Tâche 2", detail: "Narration (120-150 mots)", tone: "bg-green" },
-  { numero: 3, titre: "Tâche 3", detail: "Argument. (120-180 mots)", tone: "bg-fuchsia" },
+  { numero: 1, titre: "Tâche 1", detail: "Entretien dirigé (2 min)", tone: "bg-blue" },
+  { numero: 2, titre: "Tâche 2", detail: "Discussion suivie (3 min)", tone: "bg-green" },
+  { numero: 3, titre: "Tâche 3", detail: "Débat argumenté (7 min)", tone: "bg-fuchsia" },
 ];
 
-export default function CombinaisonsPage() {
+export default function CombinaisonsExpressionOralePage() {
   return (
     <>
       {/* HERO */}
       <section className="bg-gradient-to-br from-blue to-blue-dark">
         <div className="max-w-[860px] mx-auto px-8 py-14 text-center">
           <Link
-            href="/epreuve/expression-ecrite"
+            href="/epreuve/expression-orale"
             className="flex items-center justify-center gap-1.5 text-white/80 text-sm font-semibold mb-5 hover:text-white transition"
           >
-            ← Retour à l&apos;Expression Écrite
+            ← Retour à l&apos;Expression Orale
           </Link>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white text-sm font-bold px-4 py-2 mb-5">
             <LayersIcon className="w-4 h-4" />
-            Expression Écrite
+            Expression Orale
           </span>
           <h1 className="text-white font-extrabold text-4xl leading-tight">
             Combinaisons d&apos;Entraînement
           </h1>
           <p className="text-white/85 mt-4 max-w-[58ch] mx-auto">
             Chaque combinaison regroupe les 3 tâches complètes de l&apos;expression
-            écrite : message court, narration et texte argumentatif.
+            orale : entretien dirigé, discussion suivie et débat argumenté.
           </p>
           <button
             type="button"
@@ -70,7 +70,7 @@ export default function CombinaisonsPage() {
       </section>
 
       {/* SELECTION ANNEE + GRILLE DES MOIS */}
-      <CombinaisonsAnneeSelector basePath="/epreuve/expression-ecrite/combinaisons" />
+      <CombinaisonsAnneeSelector basePath="/epreuve/expression-orale/combinaisons" />
     </>
   );
 }
