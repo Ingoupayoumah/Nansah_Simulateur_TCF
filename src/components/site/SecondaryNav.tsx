@@ -28,7 +28,7 @@ export function SecondaryNav() {
     <div className="border-b border-line bg-surface">
       <div className="max-w-[1180px] mx-auto px-8 flex items-center gap-1.5 overflow-x-auto">
         {links.map((l) => {
-          const active = pathname === l.href;
+          const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
           return (
             <Link
               key={l.href}

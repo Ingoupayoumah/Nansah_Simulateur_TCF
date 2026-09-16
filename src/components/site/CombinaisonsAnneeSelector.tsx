@@ -42,10 +42,10 @@ export function CombinaisonsAnneeSelector() {
               key={a}
               type="button"
               onClick={() => setAnnee(a)}
-              className={`rounded-2xl font-extrabold text-lg px-10 py-5 transition ${
+              className={`rounded-2xl font-extrabold text-lg px-10 py-5 border-2 transition-colors ${
                 a === annee
-                  ? "bg-blue text-white hover:bg-blue-dark"
-                  : "bg-surface border border-line text-ink hover:border-blue hover:text-blue"
+                  ? "bg-blue border-blue text-white hover:bg-blue-dark hover:border-blue-dark"
+                  : "bg-surface border-line text-ink hover:border-blue hover:bg-blue-tint hover:text-blue"
               }`}
             >
               {a}
