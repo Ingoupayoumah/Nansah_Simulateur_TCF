@@ -1,13 +1,11 @@
-import Link from "next/link";
-import { LayersIcon, StarIcon, CalendarIcon } from "@/components/icons";
+import { LayersIcon, StarIcon } from "@/components/icons";
+import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSelector";
 
 const taches = [
   { numero: 1, titre: "Tâche 1", detail: "Message (60-120 mots)", tone: "bg-blue" },
   { numero: 2, titre: "Tâche 2", detail: "Narration (120-150 mots)", tone: "bg-green" },
   { numero: 3, titre: "Tâche 3", detail: "Argument. (120-180 mots)", tone: "bg-fuchsia" },
 ];
-
-const annees = [2026, 2025, 2024];
 
 export default function CombinaisonsPage() {
   return (
@@ -64,30 +62,8 @@ export default function CombinaisonsPage() {
         </div>
       </section>
 
-      {/* SELECTION ANNEE */}
-      <section className="bg-bg-deep -mt-8 pt-2">
-        <div className="max-w-[860px] mx-auto px-8 py-14 text-center">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <CalendarIcon className="w-5 h-5 text-blue" />
-            <h2 className="font-extrabold text-xl">Sélectionnez une année</h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {annees.map((annee, i) => (
-              <Link
-                key={annee}
-                href={`/epreuve/expression-ecrite/combinaisons/${annee}`}
-                className={`rounded-2xl font-extrabold text-lg px-10 py-5 transition ${
-                  i === 0
-                    ? "bg-blue text-white hover:bg-blue-dark"
-                    : "bg-surface border border-line text-ink hover:border-blue hover:text-blue"
-                }`}
-              >
-                {annee}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SELECTION ANNEE + GRILLE DES MOIS */}
+      <CombinaisonsAnneeSelector />
     </>
   );
 }
