@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { LayersIcon, StarIcon } from "@/components/icons";
 import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSelector";
 
@@ -13,6 +14,12 @@ export default function CombinaisonsPage() {
       {/* HERO */}
       <section className="bg-gradient-to-br from-blue to-blue-dark">
         <div className="max-w-[860px] mx-auto px-8 py-14 text-center">
+          <Link
+            href="/epreuve/expression-ecrite"
+            className="flex items-center justify-center gap-1.5 text-white/80 text-sm font-semibold mb-5 hover:text-white transition"
+          >
+            ← Retour à l&apos;Expression Écrite
+          </Link>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white text-sm font-bold px-4 py-2 mb-5">
             <LayersIcon className="w-4 h-4" />
             Expression Écrite
