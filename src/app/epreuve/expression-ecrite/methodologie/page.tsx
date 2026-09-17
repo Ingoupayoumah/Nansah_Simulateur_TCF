@@ -8,16 +8,16 @@ import {
 import { AnimatedNumber } from "@/components/site/AnimatedNumber";
 
 const repartition = [
-  { duree: 10, label: "Tâche 1 — Message" },
-  { duree: 20, label: "Tâche 2 — Narration" },
-  { duree: 30, label: "Tâche 3 — Argumentation" },
+  { duree: "~10-15 min", label: "Tâche 1 — Message" },
+  { duree: "~15-20 min", label: "Tâche 2 — Narration" },
+  { duree: "~20-30 min", label: "Tâche 3 — Argumentation" },
 ];
 
 const taches = [
   {
     numero: 1,
     titre: "Tâche 1 : Message court",
-    meta: "60-120 mots · 10 minutes · Niveau A2-B1",
+    meta: "60-120 mots · ~10-15 min recommandées · Niveau A2-B1",
     format:
       "La tâche la plus accessible de l'épreuve, généralement de niveau A2 à B1. Vous devez rédiger un message court ancré dans une situation du quotidien : message à un proche, email professionnel, note explicative ou invitation.",
     structure: [
@@ -36,27 +36,27 @@ const taches = [
   {
     numero: 2,
     titre: "Tâche 2 : Narration",
-    meta: "120-150 mots · 20 minutes · Niveau B1 avancé - B2",
+    meta: "120-150 mots · ~15-20 min recommandées · Niveau B1 avancé - B2",
     callout:
-      "Point important : cette tâche demande de raconter, pas de donner votre avis. Aucune argumentation n'est attendue ici — seulement un récit.",
+      "Point important : contrairement à une idée reçue, cette tâche ne se limite pas à raconter — elle attend aussi un commentaire personnel sur l'expérience (votre ressenti, votre avis, ce que vous en retenez), sans pour autant devenir une argumentation structurée comme la Tâche 3.",
     format:
-      "Le plus souvent, il s'agit de rédiger un court article de blog ou un message racontant une expérience personnelle, un souvenir ou un événement vécu.",
+      "Le plus souvent, il s'agit de rédiger un court article de blog ou un message racontant une expérience personnelle, un souvenir ou un événement vécu — puis de le commenter.",
     structure: [
       { titre: "Introduction", desc: "Le contexte de l'expérience : quand, où, pourquoi." },
       { titre: "Développement", desc: "Le récit détaillé, avec actions et ressenti." },
-      { titre: "Conclusion", desc: "Ce que vous en retenez, avec un peu de recul." },
+      { titre: "Commentaire", desc: "Votre réaction, votre avis ou ce que vous en retenez, avec un peu de recul." },
     ],
     conseils: [
       "Privilégiez les temps du passé (passé composé, imparfait) pour installer le récit.",
       "Ajoutez des détails concrets : ce que vous avez vu, entendu, ressenti sur le moment.",
       "Enchaînez vos idées avec des connecteurs temporels : d'abord, ensuite, plus tard, finalement.",
-      "Nommez vos émotions clairement : j'étais surpris, ravi, déçu...",
+      "Ne vous arrêtez pas au récit — terminez toujours par une phrase de commentaire ou de bilan personnel.",
     ],
   },
   {
     numero: 3,
     titre: "Tâche 3 : Texte argumentatif",
-    meta: "120-180 mots, en 2 parties · 30 minutes · Niveau C1-C2",
+    meta: "120-180 mots, en 2 parties · ~20-30 min recommandées · Niveau B2-C1",
     format:
       "La tâche la plus exigeante de l'épreuve. On vous soumet une question accompagnée de deux documents défendant des positions opposées, et vous devez construire un texte structuré en deux parties, avec un titre.",
     structure: [
@@ -129,14 +129,15 @@ export default function MethodologieExpressionEcritePage() {
         <section className="anim-fade-up-1 rounded-3xl bg-bg-deep p-6 sm:p-8">
           <h2 className="font-extrabold text-lg mb-2">Gestion du temps recommandée</h2>
           <p className="text-ink-soft text-sm mb-6">
-            Aucune minuterie stricte n&apos;impose une limite par tâche, mais respecter
-            cette répartition est fortement conseillé pour terminer les 3 tâches dans
-            le temps global imparti.
+            L&apos;examen ne fixe qu&apos;une durée globale de 60 minutes pour les 3
+            tâches — aucun minutage officiel n&apos;est imposé tâche par tâche. Cette
+            répartition est une recommandation pédagogique pour vous aider à ne pas
+            être pris de court.
           </p>
           <div className="grid sm:grid-cols-3 gap-4">
             {repartition.map((r) => (
               <div key={r.label} className="rounded-2xl bg-surface p-5 text-center">
-                <div className="text-blue font-extrabold text-2xl">{r.duree} min</div>
+                <div className="text-blue font-extrabold text-2xl">{r.duree}</div>
                 <div className="text-ink-soft text-sm font-semibold mt-1">{r.label}</div>
               </div>
             ))}
