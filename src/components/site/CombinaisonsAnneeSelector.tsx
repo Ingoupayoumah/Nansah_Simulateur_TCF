@@ -26,7 +26,14 @@ function combinaisonsPlaceholder(index: number) {
   return 4 + ((index * 7) % 12);
 }
 
-export function CombinaisonsAnneeSelector({ basePath }: { basePath: string }) {
+export function CombinaisonsAnneeSelector({
+  basePath,
+  counts = {},
+}: {
+  basePath: string;
+  /** Nombre réel de combinaisons pour un mois donné, clé "annee-mois" en minuscules (ex. "2024-janvier"). Sinon, un placeholder est affiché. */
+  counts?: Record<string, number>;
+}) {
   const [annee, setAnnee] = useState(ANNEES[0]);
 
   return (
@@ -75,7 +82,7 @@ export function CombinaisonsAnneeSelector({ basePath }: { basePath: string }) {
               <div className="flex items-center justify-between mt-2">
                 <span className="inline-flex items-center gap-1.5 text-ink-faint text-sm font-semibold">
                   <TagIcon className="w-4 h-4" />
-                  {combinaisonsPlaceholder(i)} combinaisons
+                  {counts[`${annee}-${mois.toLowerCase()}`] ?? combinaisonsPlaceholder(i)} combinaisons
                 </span>
                 <ChevronRightIcon className="w-4 h-4 text-blue opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>

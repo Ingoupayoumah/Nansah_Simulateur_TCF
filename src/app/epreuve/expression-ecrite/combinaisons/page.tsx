@@ -70,7 +70,10 @@ export default function CombinaisonsPage() {
       </section>
 
       {/* SELECTION ANNEE + GRILLE DES MOIS */}
-      <CombinaisonsAnneeSelector basePath="/epreuve/expression-ecrite/combinaisons" />
+      <CombinaisonsAnneeSelector
+        basePath="/epreuve/expression-ecrite/combinaisons"
+        counts={{ "2024-janvier": 10 }}
+      />
     </>
   );
 }
