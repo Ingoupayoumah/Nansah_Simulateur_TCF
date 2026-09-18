@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LayersIcon, StarIcon } from "@/components/icons";
 import { AnneeMoisSelector } from "@/components/site/AnneeMoisSelector";
 import { prisma } from "@/lib/prisma";
+import { pairEOCombinaisons } from "@/lib/eoCombinaisons";
 
 // Idem : contenu issu de Postgres, jamais figé au build.
 export const dynamic = "force-dynamic";
@@ -13,12 +14,30 @@ const taches = [
 ];
 
 export default async function CombinaisonsExpressionOralePage() {
-  const groupes = await prisma.sujet.groupBy({
-    by: ["year", "month"],
-    where: { epreuve: "EO", status: "publie" },
-    _count: { _all: true },
+  const sujets = await prisma.sujet.findMany({
+    where: { epreuve: "EO", status: "publie", tacheNumber: { in: [2, 3] } },
+    orderBy: [{ year: "asc" }, { month: "asc" }, { partieNumber: "asc" }, { order: "asc" }],
+    select: {
+      id: true,
+      year: true,
+      month: true,
+      partieNumber: true,
+      tacheNumber: true,
+      order: true,
+      consigne: true,
+      reponseModele: true,
+    },
   });
-  const data = groupes.map((g) => ({ year: g.year, month: g.month, count: g._count._all }));
+  const byMonth = new Map<string, typeof sujets>();
+  for (const s of sujets) {
+    const key = `${s.year}-${s.month}`;
+    if (!byMonth.has(key)) byMonth.set(key, []);
+    byMonth.get(key)!.push(s);
+  }
+  const data = Array.from(byMonth.entries()).map(([key, rows]) => {
+    const [year, month] = key.split("-").map(Number);
+    return { year, month, count: pairEOCombinaisons(rows).length };
+  });
 
   return (
     <>
@@ -85,7 +104,7 @@ export default async function CombinaisonsExpressionOralePage() {
       <AnneeMoisSelector
         basePath="/epreuve/expression-orale/combinaisons"
         data={data}
-        unitLabel="sujets"
+        unitLabel="combinaisons"
       />
     </>
   );

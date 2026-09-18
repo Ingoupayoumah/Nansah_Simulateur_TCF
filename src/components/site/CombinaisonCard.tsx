@@ -7,7 +7,8 @@ import { ReadAloudButton } from "@/components/site/ReadAloudButton";
 
 export type Tache = {
   numero: 1 | 2 | 3;
-  titreInterne: string;
+  typeLabel: string;
+  duree: string;
   consigne: string;
   documentsJson: { doc1: string; doc2: string } | null;
   reponseModele: string | null;
@@ -15,10 +16,10 @@ export type Tache = {
   longueurMax: number | null;
 };
 
-const TACHE_META: Record<number, { tone: string; tint: string; duree: string }> = {
-  1: { tone: "bg-blue", tint: "bg-blue-tint", duree: "10-15 min" },
-  2: { tone: "bg-green", tint: "bg-green-tint", duree: "15-20 min" },
-  3: { tone: "bg-fuchsia", tint: "bg-fuchsia-tint", duree: "20-30 min" },
+const TACHE_META: Record<number, { tone: string; tint: string }> = {
+  1: { tone: "bg-blue", tint: "bg-blue-tint" },
+  2: { tone: "bg-green", tint: "bg-green-tint" },
+  3: { tone: "bg-fuchsia", tint: "bg-fuchsia-tint" },
 };
 
 function TacheBloc({ tache }: { tache: Tache }) {
@@ -40,7 +41,7 @@ function TacheBloc({ tache }: { tache: Tache }) {
         <div>
           <h3 className="font-extrabold leading-tight">
             Tâche {tache.numero}{" "}
-            <span className="text-ink-faint font-semibold">· {tache.titreInterne}</span>
+            <span className="text-ink-faint font-semibold">· {tache.typeLabel}</span>
           </h3>
           <div className="flex gap-2 mt-1.5">
             {mots && (
@@ -49,7 +50,7 @@ function TacheBloc({ tache }: { tache: Tache }) {
               </span>
             )}
             <span className="text-xs font-semibold text-ink-soft bg-surface px-2.5 py-1 rounded-full">
-              {meta.duree}
+              {tache.duree}
             </span>
           </div>
         </div>
@@ -99,8 +100,16 @@ function TacheBloc({ tache }: { tache: Tache }) {
   );
 }
 
-export function CombinaisonCard({ numero, taches }: { numero: number; taches: Tache[] }) {
-  const [expanded, setExpanded] = useState(true);
+export function CombinaisonCard({
+  numero,
+  taches,
+  defaultExpanded = true,
+}: {
+  numero: number;
+  taches: Tache[];
+  defaultExpanded?: boolean;
+}) {
+  const [expanded, setExpanded] = useState(defaultExpanded);
 
   return (
     <div className="rounded-3xl border border-line overflow-hidden bg-surface">

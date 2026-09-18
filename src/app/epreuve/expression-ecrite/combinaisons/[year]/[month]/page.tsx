@@ -23,6 +23,12 @@ const MOIS_NOMS: Record<string, number> = {
 
 type Combinaison = { numero: number; taches: Tache[] };
 
+const EE_DUREE: Record<number, string> = {
+  1: "10-15 min",
+  2: "15-20 min",
+  3: "20-30 min",
+};
+
 export default async function CombinaisonsMoisPage({
   params,
 }: {
@@ -63,7 +69,8 @@ export default async function CombinaisonsMoisPage({
     if (!combinaisonsMap.has(numero)) combinaisonsMap.set(numero, { numero, taches: [] });
     combinaisonsMap.get(numero)!.taches.push({
       numero: s.tacheNumber as 1 | 2 | 3,
-      titreInterne: s.titreInterne,
+      typeLabel: s.titreInterne,
+      duree: EE_DUREE[s.tacheNumber] ?? "",
       consigne: s.consigne,
       documentsJson: s.documentsJson as { doc1: string; doc2: string } | null,
       reponseModele: s.reponseModele,
