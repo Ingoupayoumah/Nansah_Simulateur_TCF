@@ -4,9 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { CalendarIcon, TagIcon, ChevronRightIcon } from "@/components/icons";
 
-const ANNEES = [2026, 2025, 2024];
-
-const MOIS = [
+const MOIS_NOMS = [
+  "",
   "Janvier",
   "Février",
   "Mars",
@@ -21,20 +20,23 @@ const MOIS = [
   "Décembre",
 ];
 
-// Nombre de combinaisons par mois — placeholder en attendant le vrai contenu.
-function combinaisonsPlaceholder(index: number) {
-  return 4 + ((index * 7) % 12);
-}
+export type MoisCompte = { year: number; month: number; count: number };
 
-export function CombinaisonsAnneeSelector({
+export function AnneeMoisSelector({
   basePath,
-  counts = {},
+  data,
+  unitLabel = "sujets",
 }: {
   basePath: string;
-  /** Nombre réel de combinaisons pour un mois donné, clé "annee-mois" en minuscules (ex. "2024-janvier"). Sinon, un placeholder est affiché. */
-  counts?: Record<string, number>;
+  data: MoisCompte[];
+  unitLabel?: string;
 }) {
-  const [annee, setAnnee] = useState(ANNEES[0]);
+  const annees = Array.from(new Set(data.map((d) => d.year))).sort((a, b) => b - a);
+  const [annee, setAnnee] = useState(annees[0]);
+
+  const moisDeLAnnee = data
+    .filter((d) => d.year === annee)
+    .sort((a, b) => a.month - b.month);
 
   return (
     <section className="bg-bg-deep -mt-8 pt-10 pb-16">
@@ -44,7 +46,7 @@ export function CombinaisonsAnneeSelector({
           <h2 className="font-extrabold text-xl">Sélectionnez une année</h2>
         </div>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {ANNEES.map((a) => (
+          {annees.map((a) => (
             <button
               key={a}
               type="button"
@@ -63,10 +65,10 @@ export function CombinaisonsAnneeSelector({
 
       <div className="max-w-[1180px] mx-auto px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {MOIS.map((mois, i) => (
+          {moisDeLAnnee.map((m) => (
             <Link
-              key={mois}
-              href={`${basePath}/${annee}/${mois.toLowerCase()}`}
+              key={m.month}
+              href={`${basePath}/${annee}/${MOIS_NOMS[m.month].toLowerCase()}`}
               className="group text-left rounded-2xl border border-line bg-surface p-5 hover:border-blue hover:shadow-md transition"
             >
               <span className="w-11 h-11 rounded-xl bg-blue flex items-center justify-center text-white mb-4">
@@ -77,12 +79,12 @@ export function CombinaisonsAnneeSelector({
                 DISPONIBLE
               </span>
               <h3 className="font-extrabold text-lg group-hover:text-blue transition-colors">
-                {mois} {annee}
+                {MOIS_NOMS[m.month]} {annee}
               </h3>
               <div className="flex items-center justify-between mt-2">
                 <span className="inline-flex items-center gap-1.5 text-ink-faint text-sm font-semibold">
                   <TagIcon className="w-4 h-4" />
-                  {counts[`${annee}-${mois.toLowerCase()}`] ?? combinaisonsPlaceholder(i)} combinaisons
+                  {m.count} {unitLabel}
                 </span>
                 <ChevronRightIcon className="w-4 h-4 text-blue opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>

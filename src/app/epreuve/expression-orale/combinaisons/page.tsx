@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LayersIcon, StarIcon } from "@/components/icons";
-import { EOAnneeMoisSelector } from "@/components/site/EOAnneeMoisSelector";
+import { AnneeMoisSelector } from "@/components/site/AnneeMoisSelector";
 import { prisma } from "@/lib/prisma";
 
 // Idem : contenu issu de Postgres, jamais figé au build.
@@ -82,7 +82,11 @@ export default async function CombinaisonsExpressionOralePage() {
       </section>
 
       {/* SELECTION ANNEE + GRILLE DES MOIS */}
-      <EOAnneeMoisSelector data={data} />
+      <AnneeMoisSelector
+        basePath="/epreuve/expression-orale/combinaisons"
+        data={data}
+        unitLabel="sujets"
+      />
     </>
   );
 }

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { LayersIcon, StarIcon } from "@/components/icons";
-import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSelector";
+import { AnneeMoisSelector } from "@/components/site/AnneeMoisSelector";
+import { prisma } from "@/lib/prisma";
+
+// Toujours rendue à la demande — le contenu vient de Postgres et change
+// indépendamment des déploiements, aucune pré-génération statique possible.
+export const dynamic = "force-dynamic";
 
 const taches = [
   { numero: 1, titre: "Tâche 1", detail: "Message (60-120 mots)", tone: "bg-blue" },
@@ -8,7 +13,21 @@ const taches = [
   { numero: 3, titre: "Tâche 3", detail: "Argument. (120-180 mots)", tone: "bg-fuchsia" },
 ];
 
-export default function CombinaisonsPage() {
+export default async function CombinaisonsPage() {
+  const rows = await prisma.sujet.findMany({
+    where: { epreuve: "EE", status: "publie" },
+    select: { year: true, month: true, partieNumber: true },
+    distinct: ["year", "month", "partieNumber"],
+  });
+  const counts = new Map<string, { year: number; month: number; count: number }>();
+  for (const r of rows) {
+    const key = `${r.year}-${r.month}`;
+    const entry = counts.get(key);
+    if (entry) entry.count += 1;
+    else counts.set(key, { year: r.year, month: r.month, count: 1 });
+  }
+  const data = Array.from(counts.values());
+
   return (
     <>
       {/* HERO */}
@@ -70,9 +89,10 @@ export default function CombinaisonsPage() {
       </section>
 
       {/* SELECTION ANNEE + GRILLE DES MOIS */}
-      <CombinaisonsAnneeSelector
+      <AnneeMoisSelector
         basePath="/epreuve/expression-ecrite/combinaisons"
-        counts={{ "2024-janvier": 10 }}
+        data={data}
+        unitLabel="combinaisons"
       />
     </>
   );
