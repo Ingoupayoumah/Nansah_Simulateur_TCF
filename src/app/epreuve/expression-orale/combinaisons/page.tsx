@@ -3,6 +3,9 @@ import { LayersIcon, StarIcon } from "@/components/icons";
 import { EOAnneeMoisSelector } from "@/components/site/EOAnneeMoisSelector";
 import { prisma } from "@/lib/prisma";
 
+// Idem : contenu issu de Postgres, jamais figé au build.
+export const dynamic = "force-dynamic";
+
 const taches = [
   { numero: 1, titre: "Tâche 1", detail: "Entretien dirigé (2 min)", tone: "bg-blue" },
   { numero: 2, titre: "Tâche 2", detail: "Interaction préparée (5 min 30)", tone: "bg-green" },

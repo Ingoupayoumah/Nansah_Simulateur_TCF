@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { EOPartieBrowser, type Partie } from "@/components/site/EOPartieBrowser";
 
+// Toujours rendue à la demande — le contenu vient de Postgres et change
+// indépendamment des déploiements, aucune pré-génération statique possible.
+export const dynamic = "force-dynamic";
+
 const MOIS_NOMS: Record<string, number> = {
   janvier: 1,
   février: 2,
