@@ -163,6 +163,7 @@ model Sujet {
   reponseModele  String?
   month          Int
   year           Int
+  partieNumber   Int? // regroupement "Partie N" au sein du mois (granularité réelle des données EO)
   status         ContentStatus     @default(brouillon)
   publishAt      DateTime?
   tags           String[]
@@ -174,6 +175,7 @@ model Sujet {
   oralSubmissions    OralSubmission[]
 
   @@index([epreuve, year, month])
+  @@index([epreuve, year, month, partieNumber])
 }
 
 model Astuce {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LayersIcon, StarIcon } from "@/components/icons";
-import { CombinaisonsAnneeSelector } from "@/components/site/CombinaisonsAnneeSelector";
+import { EOAnneeMoisSelector } from "@/components/site/EOAnneeMoisSelector";
+import { prisma } from "@/lib/prisma";
 
 const taches = [
   { numero: 1, titre: "Tâche 1", detail: "Entretien dirigé (2 min)", tone: "bg-blue" },
@@ -8,7 +9,14 @@ const taches = [
   { numero: 3, titre: "Tâche 3", detail: "Expression spontanée (4 min 30)", tone: "bg-fuchsia" },
 ];
 
-export default function CombinaisonsExpressionOralePage() {
+export default async function CombinaisonsExpressionOralePage() {
+  const groupes = await prisma.sujet.groupBy({
+    by: ["year", "month"],
+    where: { epreuve: "EO", status: "publie" },
+    _count: { _all: true },
+  });
+  const data = groupes.map((g) => ({ year: g.year, month: g.month, count: g._count._all }));
+
   return (
     <>
       {/* HERO */}
@@ -71,7 +79,7 @@ export default function CombinaisonsExpressionOralePage() {
       </section>
 
       {/* SELECTION ANNEE + GRILLE DES MOIS */}
-      <CombinaisonsAnneeSelector basePath="/epreuve/expression-orale/combinaisons" />
+      <EOAnneeMoisSelector data={data} />
     </>
   );
 }
