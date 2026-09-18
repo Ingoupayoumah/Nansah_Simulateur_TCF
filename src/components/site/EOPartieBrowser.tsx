@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CalendarIcon, MicIcon, ChevronDownIcon, CheckCircleIcon } from "@/components/icons";
+import { ReadAloudButton } from "@/components/site/ReadAloudButton";
 
 type Sujet = { id: string; consigne: string; reponseModele: string | null };
 export type Partie = {
@@ -33,9 +34,12 @@ function SujetDetail({ sujet }: { sujet: Sujet }) {
       </div>
       {open && sujet.reponseModele && (
         <div className="bg-green-tint border-t border-line px-5 py-5">
-          <div className="flex items-center gap-2 text-green font-bold text-xs uppercase tracking-wide mb-3">
-            <CheckCircleIcon className="w-4 h-4" />
-            Exemple de réponse
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-2 text-green font-bold text-xs uppercase tracking-wide">
+              <CheckCircleIcon className="w-4 h-4" />
+              Exemple de réponse
+            </div>
+            <ReadAloudButton text={sujet.reponseModele} />
           </div>
           <p className="text-ink-soft leading-relaxed whitespace-pre-line">{sujet.reponseModele}</p>
         </div>

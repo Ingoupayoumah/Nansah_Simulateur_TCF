@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDownIcon, CheckCircleIcon } from "@/components/icons";
+import { ReadAloudButton } from "@/components/site/ReadAloudButton";
 
 export function TaskCard({
   numero,
@@ -59,9 +60,12 @@ export function TaskCard({
 
       {open && (
         <div className="bg-green-tint border-t border-line px-6 sm:px-7 py-6">
-          <div className="flex items-center gap-2 text-green font-bold text-xs uppercase tracking-wide mb-3">
-            <CheckCircleIcon className="w-4 h-4" />
-            Correction proposée
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-2 text-green font-bold text-xs uppercase tracking-wide">
+              <CheckCircleIcon className="w-4 h-4" />
+              Correction proposée
+            </div>
+            <ReadAloudButton text={correction} />
           </div>
           <p className="text-ink-soft leading-relaxed whitespace-pre-line">{correction}</p>
         </div>

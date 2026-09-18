@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { LayersIcon, PlayIcon, ChevronDownIcon, EyeIcon } from "@/components/icons";
+import { ReadAloudButton } from "@/components/site/ReadAloudButton";
 
 export type Tache = {
   numero: 1 | 2 | 3;
@@ -86,6 +87,9 @@ function TacheBloc({ tache }: { tache: Tache }) {
 
       {open && tache.reponseModele && (
         <div className="mt-4 rounded-xl bg-surface border border-line p-4">
+          <div className="flex justify-end mb-3">
+            <ReadAloudButton text={tache.reponseModele} />
+          </div>
           <p className="text-ink-soft leading-relaxed whitespace-pre-line">
             {tache.reponseModele}
           </p>

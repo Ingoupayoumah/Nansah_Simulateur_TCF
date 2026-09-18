@@ -316,6 +316,24 @@ export function LightbulbIcon({ className }: { className?: string }) {
   );
 }
 
+export function VolumeIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" {...stroke}>
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+      <path d="M16.5 8.5a5 5 0 010 7M19.5 6a9 9 0 010 12" />
+    </svg>
+  );
+}
+
+export function VolumeOffIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" {...stroke}>
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+      <path d="M16 9.5l4.5 5M20.5 9.5L16 14.5" />
+    </svg>
+  );
+}
+
 export function UsersIcon({ className }: { className?: string }) {
   return (
     <svg className={className} width="20" height="20" viewBox="0 0 24 24" {...stroke}>
