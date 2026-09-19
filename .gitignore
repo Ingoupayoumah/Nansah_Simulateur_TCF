@@ -42,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Corpus réel EO + travaux de l'agent : contenu commercial, ne jamais pousser sur un dépôt public
+/data/eo-agent/
